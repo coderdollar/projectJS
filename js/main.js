@@ -1,43 +1,97 @@
-let pais = prompt ("¡Hola! Gracias por ponerte en contacto con nosotros.\nPara iniciar, escribe con minúsculas el país dondé requieres el servicio");
+// ***** Menú *****
+const menu = [
+    {nombre: "hamburguesa", precio: 5},
+    {nombre: "papas fritas", precio: 2}, 
+    {nombre: "gaseosa", precio: 1},
+    {nombre: "cerveza", precio: 3},
+    {nombre: "pizza", precio: 10},
+    {nombre: "nachos", precio: 4},
+    {nombre: "malteada", precio: 3},
+    {nombre: "hot dog", precio: 4},
+];
 
-if (pais == "colombia" || pais == "chile" || pais == "uruguay" || pais == "argentina") {
-    alert("¡Buenas noticias! Contamos con cobertura nacional en tu país.\nDa clic en Aceptar y continuemos con tu solicitud.");
-    
-}  else if (pais == "paraguay" || pais == "mexico" || pais == "peru") {
-    alert("Nuestra cobertura en tu país es limitada, pero haremos todo lo posible por brindarte el serivio que mereces.\nDa clic en Aceptar y continuemos con tu solicitud");
+let carrito = []
 
-} else {
-    alert("La cobertura en tu país es muy limitada, nuestro tiempo de entrega puede extenderse más de lo habitual. \nDa clic en Aceptar y continuemos con tu solicitud.")
+let seleccion = prompt("¡Bienvenido!, Gracias por visitar nuestro restaurante ¿Deseas ordenar algo?");
+
+while(seleccion != "si" && seleccion != "no"){
+    alert ("Por favor ingresa únicamente si o no")
+    seleccion = prompt("¡Bienvenido!, Gracias por visitar nuestro restaurante ¿Deseas ordenar algo?");
 }
 
-function price (estudio, numero){
-    switch (estudio) {
-        case "sencillo":
-            return numero * 25;
-            break;
-        case "plus":
-            return numero * 50;
-            break;
-        case "premium":
-            return numero * 75;
-            break;
-        default:
-            return "Solicitud no identificada";
-            break;              
+// ***** Se corta ciclo (si o no) *****
+
+// ***** Comienza mostrar el menu o envía proceso al final******
+
+if(seleccion === "si"){
+    alert("Te presentamos nuestro menú");
+    let allProducts = menu.map((item) => item.nombre + " " + "$" + item.precio + " USD");
+    alert(allProducts.join(" - "));
+} else if (seleccion === "no"){
+    alert ("Gracias por visitarnos, ¡hasta pronto!");
+}
+
+// ***** Termina Menu de bienvenida ******
+
+// ***** Comienza la compra ******
+
+while(seleccion != "no"){
+    let producto = prompt("Agrega un delicioso producto a tu carrito. No olvides escribirlo todo en minúsculas");
+    let precio = 0;
+
+    if (producto == "hamburguesa" || producto == "papas fritas" || producto == "gaseosa" || producto == "cerveza" || producto == "pizza" || producto == "nachos" || producto == "malteada" || producto == "hot dog"){
+        switch (producto){
+            case "hamburguesa":
+                precio = 5;
+                break;
+            case "papas fritas":
+                precio = 2;
+                break;
+            case "gaseosa":
+                precio = 2;
+                break;
+            case "cerveza":
+                precio = 3;
+                break;
+            case "pizza":
+                precio = 10;
+                break;
+            case "nachos":
+                precio = 4;
+                break;
+            case "malteada":
+                precio = 3;
+                break;
+            case "hot dog":
+                precio = 4;
+                break;
+            default:
+                break;
+        }
+
+    let unidades = parseInt(prompt("¿Cuantás unidades desea ordenar?"));
+
+    carrito.push({producto, unidades, precio})
+
+    } else{
+        alert ("Lo sentimos, ese producto no se encuentra en nuestro menú");
+    }
+
+    seleccion = prompt ("¿Desea añadir otro producto a su orden?");
+
+    while (seleccion === "no"){
+        alert ("Gracias por tu compra.\nDa click en aceptar para conocer el total de tu orden");
+        // ****** Cálculo de total por producto en consola únicamente ******
+        carrito.forEach((carritoFinal) => {
+            console.log (`Producto: ${carritoFinal.producto}, Unidades: ${carritoFinal.unidades}, Total a pagar por producto: ${carritoFinal.unidades * carritoFinal.precio}`)
+        })
+    break;    
     }
 }
 
-let estudio = prompt ("Ingresa el tipo de estudio de tu interés.  \n 1. sencillo  \n 2. plus  \n 3. premium");
-let numero = Number(prompt("Ingresa el número de estudios requeridos."));
+// ******* Termina orden de compra *******
 
-let resultado = price (estudio, numero);
-alert ("Perfecto, el costo total del servicio es de $" + resultado + " USD.")
+// *+**** Total ******
+const total = carrito.reduce((acumulador, orden) => acumulador + orden.precio * orden.unidades, 0);
 
-let confirmar = prompt("Escribe `confirmar` para enviar la solicitud")
-
-while (confirmar != "confirmar") {
-    alert ("Solicitud no confirmada.\nIntentalo nuevamente");
-    confirmar = prompt("Escribe `confirmar` para enviar la solicitud")
-}
-
-alert("!Solicitud confirmada!\nGracias por confiar en nosotros.")
+alert (`Su total es de: $${total} USD`);
