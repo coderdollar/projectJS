@@ -83,7 +83,7 @@ while(seleccion != "no"){
         alert ("Gracias por tu compra.\nDa click en aceptar para conocer el total de tu orden");
         // ****** Cálculo de total por producto en consola únicamente ******
         carrito.forEach((carritoFinal) => {
-            console.log (`Producto: ${carritoFinal.producto}, Unidades: ${carritoFinal.unidades}, Total a pagar por producto: ${carritoFinal.unidades * carritoFinal.precio}`)
+            console.log (`Producto: ${carritoFinal.producto}, Unidades: ${carritoFinal.unidades}, Total a pagar por producto: ${carritoFinal.unidades * carritoFinal.precio}`);
         })
     break;    
     }
